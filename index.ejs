@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Index Page</title>
+</head>
+<body>
+<ul>
+  <% htmlWebpackPlugin.options.pages.forEach(function(page){ %>
+  <li><a href="./<%= page %>.html"><%= page %></a></li>
+  <% }); %>
+</ul>
+</body>
+</html>

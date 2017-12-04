@@ -1,0 +1,29 @@
+{
+  "name": "webpack-test-01",
+  "version": "1.0.0",
+  "description": "practice for webpack ",
+  "main": "index.js",
+  "scripts": {
+    "static-watch": "webpack --env=static --progress --profile --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frank120/webpack-test-01.git"
+  },
+  "author": "Frank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frank120/webpack-test-01/issues"
+  },
+  "homepage": "https://github.com/Frank120/webpack-test-01#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.2.3",
+    "html-webpack-plugin": "^2.30.1",
+    "postcss-cssnext": "^3.0.2",
+    "script-ext-html-webpack-plugin": "^1.8.8",
+    "static-site-generator-webpack-plugin": "^3.4.1",
+    "webpack": "^3.9.1",
+    "webpack-merge": "^4.1.1"
+  }
+}
