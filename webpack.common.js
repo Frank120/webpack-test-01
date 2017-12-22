@@ -1,4 +1,4 @@
-import { transform } from '../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/async';
+// import { transform } from '../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/async';
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -17,7 +17,7 @@ module.exports = (env, compileEntries) => {
         output: {
             path: path.resolve(__dirname, 'dist'),
             publicPath,
-            chunkFulename: 'async-chunks/[name].js',
+            chunkFilename: 'async-chunks/[name].js',
             filename: 'entries/[name].js',
             library: 'umd'
         },
@@ -25,11 +25,10 @@ module.exports = (env, compileEntries) => {
         devtool: 'cheap-module-eval=source-map',
 
         module: {
-            laoders: [
+            loaders: [
                 {
                     test: /\.jsx?$/,
                     include: [path.resolve(__dirname, 'src')],
-          
                     loader: (env === 'local' || env === 'static') ? ['babel-loader'] :
                     ['babel-loader', {
                         loader: 'eslint-loader',
@@ -48,8 +47,8 @@ module.exports = (env, compileEntries) => {
                         {
                             loader: 'css-loader',
                             options: {
-                            sourceMap: true,
-                            url: env === 'static',
+                                sourceMap: true,
+                                url: env === 'static',
                             },
                         },
                         {
@@ -59,7 +58,7 @@ module.exports = (env, compileEntries) => {
                         {
                             loader: 'resolve-url-loader',
                             options: {
-                            debug: true,
+                                debug: true,
                             },
                         },
                         { loader: 'sass-loader', options: { sourceMap: true } },
@@ -83,9 +82,9 @@ module.exports = (env, compileEntries) => {
                     loader: [{
                         loader: 'file-loader',
                         options: {
-                        name: '/[name].[ext]',
-                        outputPath: 'images',
-                        publicPath,
+                            name: '/[name].[ext]',
+                            outputPath: 'images',
+                            publicPath,
                         },
                     }],
                 },
@@ -125,53 +124,52 @@ module.exports = (env, compileEntries) => {
                 defaultAttribute : 'defer',
             }),
         ],
-    },
-};
+    };
 
-const entries = env === 'static' ? [] : filename.readdirSync('./src/entries').filter(entry => 
-    entry !== '.DS_Store' && (env !== 'local' || !compileEntries || !compileEntries.length || compileEntries.includes(entry))
-);
+    const entries = env === 'static' ? [] : fileStream.readdirSync('./src/entries').filter(entry =>
+        entryn !== '.DS_Store' && (env !== 'local' || !compileEntries || !compileEntries.length || !compileEntries.include(entry)))
+    const pages = [];
 
-const pages = [];
-entries.forEach((entry) => {
-    const localOnlyEntries = [
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://locahost:8090',
-        'webpack/hot/only-dev-server'
-    ];
-});
+    entries.forEach((entry) => {
+        const localOnlyEntries = [
+            'react-hot-loader/patch',
+            'webpack-dev-server/client?http://locahost:8090',
+            'webpack/hot/only-dev-server'
+        ];
 
-config.entry[entry] = [
-    `./src/entries/${entry}/entry.jsx`,
-];
+        config.entry[entry] = [
+            `./src/entries/${entry}/entry.jsx`,
+        ];
 
-if (env === 'local') {
-    config.entry[entry] = localOnlyEntries.concat(config.entry[entry]);
-}
+        if (env === 'local') {
+            config.entry[entry] = localOnlyEntries.concat(config.entry[entry]);
+        }
 
-if (env !== 'static') {
-    const subPages = fileStream.readdirSync(`./src/entries/${entry}`).filter(subPages => subPages.lastIndexOf('.') === -1);
+        if (env !== 'static') {
+            const subPages = fileStream.readdirSync(`./src/entries/${entry}`).filter(subPages => subPages.lastIndexOf('.') === -1);
 
-    if (subPages.length) {
-        subPages.forEach((subPage) => {
-            const page = `${entry}-${subpage}`;
-            config.plugins.push(new HtmlWebpackPlugin({
-                chunks: ['commons', entry],
-                filename: `${page}.html`,
-                template: `./dist/${page}.html`
-            }));
+            if (subPages.length) {
+                subPages.forEach((subPage) => {
+                    const page = `${entry}-${subpage}`;
+                    config.plugins.push(new HtmlWebpackPlugin({
+                        chunks: ['commons', entry],
+                        filename: `${page}.html`,
+                        template: `./dist/${page}.html`
+                    }));
 
-            pages.push(page);
-        });
-    } else {
-        config.plugins.push(new HtmlWebpackPlugin({
-            chunks: ['commons', entry],
-            filename: `${entry}/htm;`,
-            template: `./dist/${entry}.html`
-        }));
+                    pages.push(page);
+                });
+            } else {
+                config.plugins.push(new HtmlWebpackPlugin({
+                    chunks: ['commons', entry],
+                    filename: `${entry}/htm;`,
+                    template: `./dist/${entry}.html`
+                }));
 
-        pages.push(page);
-    }
+                pages.push(entry);
+            }
+        }
+    });
 
     if (env !== 'static') {
         config.plugins.push(new HtmlWebpackPlugin({
@@ -183,10 +181,10 @@ if (env !== 'static') {
     }
 
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-        names: ['common'],
+        names: ['commons'],
         chunks: entries,
         minChunks: 2
     }));
 
     return config;
-}
+};
