@@ -1,5 +1,3 @@
-// import { transform } from '../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/async';
-
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');

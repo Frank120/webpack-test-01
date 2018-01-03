@@ -7,9 +7,7 @@ const CommonConfig       = require('./webpack.common.js');
 
 module.exports = function (env, compileEntries, publicPath) {
     return Merge(CommonConfig(env, compileEntries, publicPath), {
-        entry: {
-            static: './src/static/static-entry.jsx'
-        },
+        entry: { static: './src/static/static-entry.jsx' },
 
         pulgins: [
             new CleanWebpackPlugin(['dist']),
